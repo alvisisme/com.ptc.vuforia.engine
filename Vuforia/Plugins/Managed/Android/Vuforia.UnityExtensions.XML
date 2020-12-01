@@ -299,16 +299,6 @@
             Unregister from event that's called when a new search result is found
             </summary>
     </member>
-    <member name="M:Vuforia.ObjectRecoBehaviour.RegisterEventHandler(Vuforia.IObjectRecoEventHandler)">
-      <summary>
-            Registers an event handler with this ObjectRecoBehaviour which will be called on events
-            </summary>
-    </member>
-    <member name="M:Vuforia.ObjectRecoBehaviour.UnregisterEventHandler(Vuforia.IObjectRecoEventHandler)">
-      <summary>
-            Unregisters an event handler
-            </summary>
-    </member>
     <member name="T:Vuforia.RuntimeImageSource">
       <summary>
             A handle for creating a new Trackable from an image file in a DataSet.
@@ -2015,36 +2005,6 @@
             with respect to the x axis
             </summary>
     </member>
-    <member name="T:Vuforia.IObjectRecoEventHandler">
-      <summary>
-            An interface for handling reco events.
-            </summary>
-    </member>
-    <member name="M:Vuforia.IObjectRecoEventHandler.OnInitialized(Vuforia.TargetFinder)">
-      <summary>
-            called when the RecoBehaviour has finished initializing
-            </summary>
-    </member>
-    <member name="M:Vuforia.IObjectRecoEventHandler.OnInitError(Vuforia.TargetFinder.InitState)">
-      <summary>
-            called when an error is reported during initialization
-            </summary>
-    </member>
-    <member name="M:Vuforia.IObjectRecoEventHandler.OnUpdateError(Vuforia.TargetFinder.UpdateState)">
-      <summary>
-            called when an error is reported while updating
-            </summary>
-    </member>
-    <member name="M:Vuforia.IObjectRecoEventHandler.OnStateChanged(System.Boolean)">
-      <summary>
-            called when the RecoBehaviour starts or stops scanning
-            </summary>
-    </member>
-    <member name="M:Vuforia.IObjectRecoEventHandler.OnNewSearchResult(Vuforia.TargetFinder.TargetSearchResult)">
-      <summary>
-            called when a new search result is found
-            </summary>
-    </member>
     <member name="T:Vuforia.IUnityPlayer">
       <summary>
             This class encapsulates functionality to detect various surface events
@@ -2223,26 +2183,8 @@
             instead of calling it multiple times a frame for better performance.
             </summary>
     </member>
-    <member name="T:Vuforia.IUserDefinedTargetEventHandler">
-      <summary>
-            An interface for handling User Defined Target building events.
-            </summary>
-    </member>
-    <member name="M:Vuforia.IUserDefinedTargetEventHandler.OnInitialized">
-      <summary>
-            called when the UserDefinedTargetBehaviour has been initialized
-            </summary>
-    </member>
-    <member name="M:Vuforia.IUserDefinedTargetEventHandler.OnFrameQualityChanged(Vuforia.ImageTargetBuilder.FrameQuality)">
-      <summary>
-            called when the UserDefinedTargetBehaviour reports a new frame Quality
-            </summary>
-    </member>
-    <member name="M:Vuforia.IUserDefinedTargetEventHandler.OnNewTrackableSource(Vuforia.TrackableSource)">
-      <summary>
-            called when an error is reported during initialization
-            </summary>
-    </member>
+    <!-- Badly formed XML comment ignored for member "M:Vuforia.IPlayModeEditorUtility.SetEditorPrefsString(System.String,System.String)" -->
+    <!-- Badly formed XML comment ignored for member "M:Vuforia.IPlayModeEditorUtility.CopyAndPasteComponentToTarget(UnityEngine.Component,UnityEngine.GameObject)" -->
     <member name="T:Vuforia.StateManager">
       <summary>
             This class is used to manage the state of all TrackableBehaviours, create them,
@@ -2286,31 +2228,6 @@
             </summary>
       <returns>
       </returns>
-    </member>
-    <member name="T:Vuforia.ITrackableEventHandler">
-      <summary>
-            Interface for handling trackable state changes.
-            </summary>
-    </member>
-    <member name="M:Vuforia.ITrackableEventHandler.OnTrackableStateChanged(Vuforia.TrackableBehaviour.Status,Vuforia.TrackableBehaviour.Status)">
-      <summary>
-            Called when the trackable state has changed.
-            </summary>
-    </member>
-    <member name="T:Vuforia.IVirtualButtonEventHandler">
-      <summary>
-            An interface for handling virtual button state changes.
-            </summary>
-    </member>
-    <member name="M:Vuforia.IVirtualButtonEventHandler.OnButtonPressed(Vuforia.VirtualButtonBehaviour)">
-      <summary>
-            Called when the virtual button has just been pressed.
-            </summary>
-    </member>
-    <member name="M:Vuforia.IVirtualButtonEventHandler.OnButtonReleased(Vuforia.VirtualButtonBehaviour)">
-      <summary>
-            Called when the virtual button has just been released.
-            </summary>
     </member>
     <member name="T:Vuforia.ImageTargetBehaviour">
       <summary>
@@ -2425,6 +2342,9 @@
             InitError is an error value that is returned by Vuforia if something goes
             wrong at initialization.
             </summary>
+    </member>
+    <member name="F:Vuforia.VuforiaUnity.InitError.INIT_LICENSE_ERROR_BAD_REQUEST">
+      <summary>Unable to verify license key due to bad request.</summary>
     </member>
     <member name="F:Vuforia.VuforiaUnity.InitError.INIT_VUFORIA_DRIVER_FAILED">
       <summary>Vuforia Driver library failed to open.</summary>
@@ -2926,13 +2846,6 @@
             E.g. using smooth character animation.
             </summary>
     </member>
-    <member name="T:Vuforia.VuforiaRenderer.VideoBGCfgData">
-      <summary>
-            This struct stores Video Background configuration data. It stores
-            position and size of the video background on the screen.
-            [DEPRECATED]
-            </summary>
-    </member>
     <member name="T:Vuforia.VuforiaRenderer.Vec2I">
       <summary>
             This struct stores 2D integer vectors.
@@ -2945,32 +2858,6 @@
             to the size of the image delivered by the camera
             </summary>
     </member>
-    <member name="T:Vuforia.VuforiaRenderer.RendererAPI">
-      <summary>
-            Which native rendering API is used
-            [DEPRECATED]
-            </summary>
-    </member>
-    <member name="F:Vuforia.VuforiaRenderer.RendererAPI.GL_20">
-      <summary>
-            OpenGL ES 2.0
-            </summary>
-    </member>
-    <member name="F:Vuforia.VuforiaRenderer.RendererAPI.METAL">
-      <summary>
-            iOS Metal
-            </summary>
-    </member>
-    <member name="F:Vuforia.VuforiaRenderer.RendererAPI.DIRECTX3D11">
-      <summary>
-            Windows DirectX-3D 11
-            </summary>
-    </member>
-    <member name="F:Vuforia.VuforiaRenderer.RendererAPI.GL_30">
-      <summary>
-            OpenGL ES 3.0
-            </summary>
-    </member>
     <member name="P:Vuforia.VuforiaRenderer.Instance">
       <summary>
             Returns an instance of a VuforiaRenderer (thread safe)
@@ -2981,34 +2868,13 @@
             The texture the video background is rendered into
             </summary>
     </member>
-    <member name="M:Vuforia.VuforiaRenderer.GetVideoBackgroundConfig">
-      <summary>
-            Retrieves the current layout configuration of the video background.
-            [DEPRECATED]
-            </summary>
-    </member>
     <member name="M:Vuforia.VuforiaRenderer.ClearVideoBackgroundConfig">
       <summary>
             clears the config of the videobackground when Vuforia is stopped.
             [DEPRECATED]
             </summary>
     </member>
-    <member name="M:Vuforia.VuforiaRenderer.SetVideoBackgroundConfig(Vuforia.VuforiaRenderer.VideoBGCfgData)">
-      <summary>
-            Configures the layout of the video background (location on the screen
-            and size).
-            [DEPRECATED]
-            </summary>
-    </member>
     <!-- Badly formed XML comment ignored for member "M:Vuforia.VuforiaRenderer.createNativeTexture(System.Int32,System.Int32,System.Int32)" -->
-    <member name="M:Vuforia.VuforiaRenderer.SetVideoBackgroundTexture(UnityEngine.Texture)">
-      <summary>
-            Tells Vuforia where the texture id to use for updating video background data.
-            When using multihreaded rendering this texture ID needs to be resolved in an Awake method
-            (texture.GetNativeTexturePtr())
-            [DEPRECATED]
-            </summary>
-    </member>
     <member name="M:Vuforia.VuforiaRenderer.SetVideoBackgroundTexturePtr(UnityEngine.Texture)">
       <summary>
             Tells Vuforia the texture pointer to use for updating video background data.
@@ -3054,15 +2920,6 @@
             between modes (For example when transitioning between AR to VR modes)
             </summary>
       <param name="flags">Bitfield of FpsHint flags</param>
-    </member>
-    <member name="M:Vuforia.VuforiaRenderer.GetRendererAPI">
-      <summary>
-            Query the native rendering API.
-            Currently supported: OpenGL ES 2.0, ES 3.0, Metal or DirectX3D11
-            [DEPRECATED]
-            </summary>
-      <returns>
-      </returns>
     </member>
     <member name="T:Vuforia.VuforiaRuntimeUtilities">
       <summary>
@@ -3623,19 +3480,6 @@
             Unsubscribe a method from being called when the StatusInfo of the TrackableBehaviour changes
             </summary>
     </member>
-    <member name="M:Vuforia.TrackableBehaviour.RegisterTrackableEventHandler(Vuforia.ITrackableEventHandler)">
-      <summary>
-            This method registers a new Tracker event handler at the Tracker.
-            These handlers are called as soon as ALL Trackables have been updated
-            in this frame.
-            </summary>
-    </member>
-    <member name="M:Vuforia.TrackableBehaviour.UnregisterTrackableEventHandler(Vuforia.ITrackableEventHandler)">
-      <summary>
-            This method unregisters a Tracker event handler.
-            Returns "false" if event handler does not exist.
-            </summary>
-    </member>
     <member name="M:Vuforia.TrackableBehaviour.OnTrackerUpdate(Vuforia.TrackableBehaviour.Status,Vuforia.TrackableBehaviour.StatusInfo)">
       <summary>
             Is triggered by the TrackerBehavior after it has updated.
@@ -3796,16 +3640,6 @@
     <member name="M:Vuforia.UserDefinedTargetBuildingBehaviour.UnregisterOnNewTrackableSourceEventHandler(System.Action{Vuforia.TrackableSource})">
       <summary>
             Unregister from event that's called when a new trackable source is available
-            </summary>
-    </member>
-    <member name="M:Vuforia.UserDefinedTargetBuildingBehaviour.RegisterEventHandler(Vuforia.IUserDefinedTargetEventHandler)">
-      <summary>
-            Registers an event handler with this UserDefinedTargetBuildingBehaviour which will be called on events
-            </summary>
-    </member>
-    <member name="M:Vuforia.UserDefinedTargetBuildingBehaviour.UnregisterEventHandler(Vuforia.IUserDefinedTargetEventHandler)">
-      <summary>
-            Unregisters an event handler
             </summary>
     </member>
     <member name="M:Vuforia.UserDefinedTargetBuildingBehaviour.StartScanning">
@@ -3993,19 +3827,6 @@
       <summary>
             Unregisters an event handler with this Virtual Button which will be called
             when a button has been released
-            Returns true on success. False otherwise.
-            </summary>
-    </member>
-    <member name="M:Vuforia.VirtualButtonBehaviour.RegisterEventHandler(Vuforia.IVirtualButtonEventHandler)">
-      <summary>
-            Registers an event handler with this Virtual Button which will be called
-            when a state changed is detected.
-            </summary>
-    </member>
-    <member name="M:Vuforia.VirtualButtonBehaviour.UnregisterEventHandler(Vuforia.IVirtualButtonEventHandler)">
-      <summary>
-            Registers an event handler with this Virtual Button which will be called
-            when a state changed is detected.
             Returns true on success. False otherwise.
             </summary>
     </member>
