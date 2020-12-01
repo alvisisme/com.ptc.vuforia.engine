@@ -2088,7 +2088,7 @@
     <member name="T:Vuforia.ImageTargetType">
       <summary>
             The type of an ImageTarget. An ImageTarget can be predefined in a dataset,
-            created at runtime as a user defined target, or fetched at runtime via
+            created at runtime as an Instant Image Target or fetched at runtime via
             cloud recognition
             </summary>
     </member>
@@ -2104,7 +2104,7 @@
     </member>
     <member name="P:Vuforia.ImageTarget.ImageTargetType">
       <summary>
-            The type of this ImageTarget (Predefined, User Defined, Cloud Reco)
+            The type of this ImageTarget (Predefined, Cloud Reco, Instant Image Target)
             </summary>
     </member>
     <member name="M:Vuforia.ImageTarget.CreateVirtualButton(System.String,Vuforia.RectangleData)">
@@ -2412,9 +2412,6 @@
     <member name="F:Vuforia.VuforiaUnity.InitError.INIT_SUCCESS">
       <summary>Initialization has successfully completed</summary>
     </member>
-    <!-- Badly formed XML comment ignored for member "T:Vuforia.VuforiaUnity.ModelTargetMode" -->
-    <!-- Badly formed XML comment ignored for member "F:Vuforia.VuforiaUnity.ModelTargetMode.DEFAULT" -->
-    <!-- Badly formed XML comment ignored for member "F:Vuforia.VuforiaUnity.ModelTargetMode.CARS" -->
     <member name="T:Vuforia.VuforiaUnity.VuforiaHint">
       <summary>
              Use when calling setHint()
@@ -2980,6 +2977,16 @@
     <member name="M:Vuforia.VuforiaRuntimeUtilities.IsPlayMode">
       <summary>
             returns ONLY true if we are running in Play Mode
+            </summary>
+    </member>
+    <member name="M:Vuforia.VuforiaRuntimeUtilities.IsPlayModeRecording">
+      <summary>
+            returns true if we are running in Play Mode with a Recording
+            </summary>
+    </member>
+    <member name="M:Vuforia.VuforiaRuntimeUtilities.IsPlayModeWebCam">
+      <summary>
+            returns true if we are running in Play Mode with a WebCam
             </summary>
     </member>
     <member name="M:Vuforia.VuforiaRuntimeUtilities.IsSimulatorMode">

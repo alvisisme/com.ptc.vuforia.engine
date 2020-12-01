@@ -6,8 +6,8 @@
         "url": "https://developer.vuforia.com/", 
         "name": "PTC Inc."
     }, 
-    "unity": "2019.3", 
-    "version": "9.3.3", 
+    "unity": "2019.4", 
+    "version": "9.4.6", 
     "dependencies": {
         "com.unity.ugui": "1.0.0"
     }, 

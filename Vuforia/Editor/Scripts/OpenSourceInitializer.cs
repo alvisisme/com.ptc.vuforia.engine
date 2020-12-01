@@ -9,6 +9,9 @@ countries.
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+#if UNITY_2020_1_OR_NEWER
+using UnityEngine.XR;
+#endif
 using Vuforia;
 using Vuforia.EditorClasses;
 
@@ -19,8 +22,11 @@ using Vuforia.EditorClasses;
 [InitializeOnLoad]
 public static class OpenSourceInitializer
 {
+    static IUnityEditorFacade sFacade;
+
     static OpenSourceInitializer()
     {
+        InitializeFacade();
         GameObjectFactory.SetDefaultBehaviourTypeConfiguration(new DefaultBehaviourAttacher());
         ReplacePlaceHolders();
     }
@@ -78,4 +84,37 @@ public static class OpenSourceInitializer
             dteh.StatusFilter = DefaultTrackableEventHandler.TrackingStatusFilter.Tracked_ExtendedTracked;
         }
     }
+
+    static void InitializeFacade()
+    {
+        if (sFacade != null) return;
+
+        sFacade = new OpenSourceUnityEditorFacade();
+        UnityEditorFacade.Instance = sFacade;
+    }
+
+    class OpenSourceUnityEditorFacade : IUnityEditorFacade
+    {
+        public bool IsTargetingHoloLens()
+        {
+            if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.WSAPlayer)
+                return false;
+#if UNITY_2020_1_OR_NEWER
+            const string UNITY_WINDOWSMR_IDENTIFIER = "Windows Mixed Reality";
+            return XRSettings.supportedDevices.Any(xrDevice => xrDevice.Contains(UNITY_WINDOWSMR_IDENTIFIER));
+#else
+            const string UNITY_WINDOWSMR_IDENTIFIER = "WindowsMR";
+            if (!PlayerSettings.GetVirtualRealitySupported(BuildTargetGroup.WSA)) return false;
+            foreach (var vrSdkName in PlayerSettings.GetVirtualRealitySDKs(BuildTargetGroup.WSA))
+            {
+                if (vrSdkName.Equals(UNITY_WINDOWSMR_IDENTIFIER))
+                {
+                    return true;
+                }
+            }
+            return false;
+#endif
+        }
+    }
+
 }
