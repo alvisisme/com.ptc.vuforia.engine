@@ -10,6 +10,295 @@
             of an ARCamera.
             </summary>
     </member>
+    <member name="T:Vuforia.ARFoundationImage">
+      <summary>
+            Data container for camera Image captured from AR Foundation
+            </summary>
+    </member>
+    <member name="T:Vuforia.IUnityARFoundationFacade">
+      <summary>
+            Provides access to AR Foundation functionality
+            </summary>
+    </member>
+    <member name="M:Vuforia.IUnityARFoundationFacade.IsARFoundationScene">
+      <summary>
+            Checks if AR Session object exists in the scene.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:Vuforia.IUnityARFoundationFacade.CheckAvailability">
+      <summary>
+            Queries AR Session for availability.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:Vuforia.IUnityARFoundationFacade.FindDependencies">
+      <summary>
+            Searches for required AR Foundation objects in the scene
+            </summary>
+    </member>
+    <member name="M:Vuforia.IUnityARFoundationFacade.Init">
+      <summary>
+            Performs steps required to make Vuforia work with AR Foundations.
+            </summary>
+    </member>
+    <member name="M:Vuforia.IUnityARFoundationFacade.Deinit">
+      <summary>
+            Performs clean up
+            </summary>
+    </member>
+    <member name="M:Vuforia.IUnityARFoundationFacade.WaitCameraForReady">
+      <summary>
+            Waits until AR Foundation camera subsystem is working and ready to track.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:Vuforia.IUnityARFoundationFacade.IsARFoundationReady">
+      <summary>
+            Queries AR Session for state.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:Vuforia.IUnityARFoundationFacade.GetPose">
+      <summary>
+            Gets the transform of AR Pose Driver object.
+            Device pose is applied to that object by AR Foundation.
+            </summary>
+      <returns>Device pose</returns>
+    </member>
+    <member name="M:Vuforia.IUnityARFoundationFacade.GetProfiles">
+      <summary>
+            Queries AR Camera Manager for available camera profiles.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:Vuforia.IUnityARFoundationFacade.SelectProfile(Vuforia.CameraMode)">
+      <summary>
+            Selects the requested camera profiles.
+            </summary>
+      <param name="profile">Must be a profile from the available camera profiles</param>
+    </member>
+    <member name="M:Vuforia.IUnityARFoundationFacade.RemoveAnchor(System.String)">
+      <summary>
+            Performs remove on AR Foundation anchor manager
+            </summary>
+      <param name="uuid">Anchor to remove. Currently TrackableId of the the anchor</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:Vuforia.IUnityARFoundationFacade.AddAnchor(UnityEngine.Pose)">
+      <summary>
+            Performs create anchor on AR Foundation anchor manager
+            </summary>
+      <param name="pose">Pose in Unity space</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:Vuforia.IUnityARFoundationFacade.ClearAnchors">
+      <summary>
+            Removes the anchors created by Vuforia
+            </summary>
+    </member>
+    <member name="M:Vuforia.IUnityARFoundationFacade.HitTest(UnityEngine.Vector2,System.Collections.Generic.List{UnityEngine.Pose}@)">
+      <summary>
+            Casts a ray from screen point to AR Foundation planes
+            </summary>
+      <param name="screenPoint">
+      </param>
+      <param name="hitPoses">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="T:Vuforia.ISessionRecorder">
+      <summary>
+            The session recorder allows the user to record Vuforia sessions for playback in the editor
+            and on a device 
+            </summary>
+    </member>
+    <member name="M:Vuforia.ISessionRecorder.Start(System.Boolean)">
+      <summary>
+            Starts recording a Vuforia session. If the captureSensor parameter is set to false, 
+            the session recorder will only save the camera feed.
+            </summary>
+      <param name="captureSensors">
+            Determine if the session recorder should also record sensor data.
+            Defaults to true.
+            </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:Vuforia.ISessionRecorder.Stop">
+      <summary>
+            Stops the current recording.
+            </summary>
+    </member>
+    <member name="M:Vuforia.ISessionRecorder.Clean">
+      <summary>
+            Deletes ALL the existing recordings on the device.
+            </summary>
+      <returns>
+            true if all the recordings were successfully deleted.
+            false otherwise.
+            </returns>
+    </member>
+    <member name="M:Vuforia.ISessionRecorder.GetRecordingStatus">
+      <summary>
+            Returns the current status of the session recorder.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:Vuforia.ISessionRecorder.GetSupportedSources">
+      <summary>
+            Returns the sources supported by the device whose data can be recorded.
+            The value is a bit-wise combination of the appropriate RecordingSource flags.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:Vuforia.ISessionRecorder.GetRecordingPath">
+      <summary>
+            Returns the path to the last successful recording. If called while recording, it returns the path to
+            the current recording.
+            It is recommended to preserve a copy of this path if a list of all recordings is needed.
+            The session recorder does not keep this information.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="T:Vuforia.RecordingStatus">
+      <summary>
+            Status of the session recorder.
+            </summary>
+    </member>
+    <member name="T:Vuforia.RecordingSource">
+      <summary>
+            The sources of data the session recorder can use.
+            </summary>
+    </member>
+    <member name="T:Vuforia.SessionRecorder">
+      <summary>
+            The session recorder allows the user to record Vuforia sessions for playback in the editor
+            and on a device 
+            </summary>
+    </member>
+    <member name="P:Vuforia.SessionRecorder.Instance">
+      <summary>
+            The current instance of the session recorder. If no session recorder is available,
+            a new one is created.
+            </summary>
+    </member>
+    <member name="M:Vuforia.SessionRecorder.Start(System.Boolean)">
+      <summary>
+            Starts recording a Vuforia session. If the captureSensor parameter is set to false, 
+            the session recorder will only save the camera feed.
+            </summary>
+      <param name="captureSensors">
+            Determine if the session recorder should also record sensor data.
+            Defaults to true.
+            </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:Vuforia.SessionRecorder.Stop">
+      <summary>
+            Stops the current recording.
+            </summary>
+    </member>
+    <member name="M:Vuforia.SessionRecorder.Clean">
+      <summary>
+            Deletes ALL the existing recordings on the device.
+            </summary>
+      <returns>
+            true if all the recordings were successfully deleted.
+            false otherwise.
+            </returns>
+    </member>
+    <member name="M:Vuforia.SessionRecorder.GetRecordingStatus">
+      <summary>
+            Returns the current status of the session recorder.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:Vuforia.SessionRecorder.GetSupportedSources">
+      <summary>
+            Returns the sources supported by the device whose data can be recorded.
+            The value is a bit-wise combination of the appropriate RecordingSource flags.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:Vuforia.SessionRecorder.GetRecordingPath">
+      <summary>
+            Returns the path to the last successful recording. If called while recording, it returns the path to
+            the current recording.
+            It is recommended to preserve a copy of this path if a list of all recordings is needed.
+            The session recorder does not keep this information.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="T:Vuforia.SessionRecorderBehaviour">
+      <summary>
+            The session recorder allows the user to record Vuforia sessions for playback in the editor
+            and on a device
+            </summary>
+    </member>
+    <member name="M:Vuforia.SessionRecorderBehaviour.StartRecording">
+      <summary>
+            Starts the recording of a Vuforia session. It uses the value assigned to the field CaptureSensorsData
+            to configure the Session Recorder. Invokes the OnRecordingStarted event after the recording is started.
+            Called from the Record button in the Session Recorder UI.
+            </summary>
+    </member>
+    <member name="M:Vuforia.SessionRecorderBehaviour.StopRecording">
+      <summary>
+            Stops recording. The method updates the Recording Status and invokes the
+            OnRecordingStopped event accordingly. 
+            Called from the Stop button in the Session Recorder UI.
+            </summary>
+    </member>
+    <member name="M:Vuforia.SessionRecorderBehaviour.CleanStorage">
+      <summary>
+            Deletes ALL the existing recordings on the device. The method invokes the
+            OnStorageCleaned event with a value of true after the storage has been successfully cleaned.
+            It is not allowed to clean the storage while a recording is in progress. In that case,
+            or if an error occurs, the OnStorageCleaned event will be invoked with a value of false.
+            Called from the Session Recorder UI.
+            </summary>
+    </member>
+    <member name="M:Vuforia.SessionRecorderBehaviour.GetRecordingStatus">
+      <summary>
+            Returns the current Recording Status.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:Vuforia.SessionRecorderBehaviour.GetSupportedSources">
+      <summary>
+            Returns the sources supported by the device whose data can be recorded.
+            The value is a bit-wise combination of the appropriate RecordingSource flags.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:Vuforia.SessionRecorderBehaviour.GetRecordingPath">
+      <summary>
+            Returns the path to the last successful recording. If called while recording, it returns the path to
+            the current recording.
+            It is recommended to preserve a copy of this path if a list of all recordings is needed.
+            The session recorder does not keep this information.
+            </summary>
+      <returns>
+      </returns>
+    </member>
     <member name="T:Vuforia.DatabaseLoadARController">
       <summary>
             This behaviour allows to automatically load and activate one or more DataSet on startup

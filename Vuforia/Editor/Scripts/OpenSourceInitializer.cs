@@ -14,6 +14,7 @@ using UnityEngine.XR;
 #endif
 using Vuforia;
 using Vuforia.EditorClasses;
+using Vuforia.UnityRuntimeCompiled.ARFoundationIntegration;
 
 /// <summary>
 /// Creates connection between open source files and the Vuforia library.
@@ -29,6 +30,7 @@ public static class OpenSourceInitializer
         InitializeFacade();
         GameObjectFactory.SetDefaultBehaviourTypeConfiguration(new DefaultBehaviourAttacher());
         ReplacePlaceHolders();
+        ARFoundationInitializer.InitializeFacade();
     }
 
     static void ReplacePlaceHolders()

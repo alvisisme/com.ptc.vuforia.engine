@@ -7,8 +7,10 @@ countries.
 ===============================================================================*/
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.XR;
 #if PLATFORM_ANDROID
 using UnityEngine.Android;
 #endif
@@ -41,10 +43,43 @@ namespace Vuforia.UnityRuntimeCompiled
             {
                 get { return mUnityRenderPipeline; }
             }
-            
+
+            public IntPtr GetHoloLensSpatialCoordinateSystemPtr()
+            {
+#if UNITY_WSA && WINDOWS_XR_ENABLED
+                return UnityEngine.XR.WindowsMR.WindowsMREnvironment.OriginSpatialCoordinateSystem;
+#elif UNITY_WSA && !UNITY_2020_1_OR_NEWER
+                return UnityEngine.XR.WSA.WorldManager.GetNativeISpatialCoordinateSystemPtr();
+#else
+                Debug.LogError("Failed to get HoloLens Spatial Coordinate System. " +
+                               "Please update to the new Unity XR Plugin System.");
+                return IntPtr.Zero;
+#endif
+            }
+
             public bool IsUnityUICurrentlySelected()
             {
                 return !(EventSystem.current == null || EventSystem.current.currentSelectedGameObject == null);
+            }
+
+            public bool IsHolographicDevice()
+            {
+#if UNITY_WSA && WINDOWS_XR_ENABLED
+                var xrDisplaySubsystems = new List<XRDisplaySubsystem>();
+                SubsystemManager.GetInstances(xrDisplaySubsystems);
+
+                foreach (var xrDisplay in xrDisplaySubsystems)
+                {
+                    if (xrDisplay.running && !xrDisplay.displayOpaque)
+                        return true;
+                }
+
+                return false;
+#elif UNITY_WSA && !UNITY_2020_1_OR_NEWER
+                return XRDevice.isPresent && !UnityEngine.XR.WSA.HolographicSettings.IsDisplayOpaque;
+#else
+                return false;
+#endif
             }
         }
 
