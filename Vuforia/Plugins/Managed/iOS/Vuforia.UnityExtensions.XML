@@ -10,6 +10,213 @@
             of an ARCamera.
             </summary>
     </member>
+    <member name="T:Vuforia.DatabaseLoadARController">
+      <summary>
+            This behaviour allows to automatically load and activate one or more DataSet on startup
+            </summary>
+    </member>
+    <member name="M:Vuforia.DatabaseLoadARController.LoadDatasets">
+      <summary>
+            Load Datasets is automatically called by VuforiaARController after Vuforia has been initialized correctly
+            </summary>
+    </member>
+    <member name="M:Vuforia.DatabaseLoadARController.AddExternalDatasetSearchDir(System.String)">
+      <summary>
+            Add an external path to search for datasets, useful when loading datasets from another location or using Android's OBB feature
+            </summary>
+    </member>
+    <member name="T:Vuforia.DataSet">
+      <summary>
+            This class represents a dataset that can be loaded and holds a collection of trackables.
+            Trackables can also be created and destroyed at runtime.
+            </summary>
+    </member>
+    <member name="T:Vuforia.DataSet.StorageType">
+      <summary>
+            Storage type is used to interpret a given path string.
+            </summary>
+    </member>
+    <member name="F:Vuforia.DataSet.StorageType.STORAGE_APP">
+      <summary>Indicates a relative path to an app local storage location.</summary>
+    </member>
+    <member name="F:Vuforia.DataSet.StorageType.STORAGE_APPRESOURCE">
+      <summary>Indicates a relative path to a resource bundled with the application.</summary>
+    </member>
+    <member name="F:Vuforia.DataSet.StorageType.STORAGE_ABSOLUTE">
+      <summary>Indicates an absolute path.</summary>
+    </member>
+    <member name="P:Vuforia.DataSet.Path">
+      <summary>
+            Returns the path to the data set.
+            </summary>
+    </member>
+    <member name="P:Vuforia.DataSet.FileStorageType">
+      <summary>
+            Returns the storage type of the data set.
+            </summary>
+    </member>
+    <member name="M:Vuforia.DataSet.Exists(System.String)">
+      <summary>
+            Checks if a data set exists at the default "StreamingAssets/Vuforia" directory
+            </summary>
+    </member>
+    <member name="M:Vuforia.DataSet.Exists(System.String,Vuforia.VuforiaUnity.StorageType)">
+      <summary>
+            Checks if a data set exists at the given path.
+            Storage type is used to correctly interpret the given path.
+            </summary>
+    </member>
+    <member name="M:Vuforia.DataSet.Load(System.String)">
+      <summary>
+            Loads a data set from the default "StreamingAssets/Vuforia" directory.
+            </summary>
+    </member>
+    <member name="M:Vuforia.DataSet.Load(System.String,Vuforia.VuforiaUnity.StorageType)">
+      <summary>
+            Loads data set from the given path.
+            Storage type is used to correctly interpret the given path.
+            </summary>
+    </member>
+    <member name="M:Vuforia.DataSet.GetTrackables">
+      <summary>
+            Returns the trackables that are defined in the data set.
+            </summary>
+    </member>
+    <member name="M:Vuforia.DataSet.CreateTrackable(Vuforia.TrackableSource,System.String)">
+      <summary>
+            Creates a new trackable behaviour attached to a new gameobject with the given name and adds it to this dataset
+            </summary>
+    </member>
+    <member name="M:Vuforia.DataSet.CreateTrackable(Vuforia.TrackableSource,UnityEngine.GameObject)">
+      <summary>
+            Adds a single trackable from a source and a given gameobject to this dataset
+            </summary>
+    </member>
+    <member name="M:Vuforia.DataSet.Destroy(Vuforia.Trackable,System.Boolean)">
+      <summary>
+            This method must not be called while the dataset is active or it will return false.
+            </summary>
+    </member>
+    <member name="M:Vuforia.DataSet.HasReachedTrackableLimit">
+      <summary>
+            Checks if this DataSet's Trackable capacity is reached.
+            Returns true if the number of Trackables created in this DataSet
+            has reached the maximum capacity, false otherwise.
+            </summary>
+    </member>
+    <member name="M:Vuforia.DataSet.Contains(Vuforia.Trackable)">
+      <summary>
+            Checks if the given trackable is contained in the DataSet
+            </summary>
+    </member>
+    <member name="M:Vuforia.DataSet.DestroyAllTrackables(System.Boolean)">
+      <summary>
+            Destroys all existing trackables
+            </summary>
+    </member>
+    <member name="T:Vuforia.DataSetTrackableBehaviour">
+      <summary>
+            This is the base class for all trackables that are part of a dataset
+            </summary>
+    </member>
+    <member name="T:Vuforia.DatasetTracker">
+      <summary>
+            The abstract DatasetTracker encapsulates methods to manage DataSets
+            </summary>
+    </member>
+    <member name="M:Vuforia.DatasetTracker.CreateDataSet">
+      <summary>
+            Creates a new empty dataset.
+            </summary>
+    </member>
+    <member name="M:Vuforia.DatasetTracker.DestroyDataSet(Vuforia.DataSet,System.Boolean)">
+      <summary>
+            Destroy the given dataset.
+            Returns false if the given dataset is active.
+            </summary>
+    </member>
+    <member name="M:Vuforia.DatasetTracker.ActivateDataSet(Vuforia.DataSet)">
+      <summary>
+            Activates the given dataset.
+            Datasets can only be activated when the tracker is not running.
+            </summary>
+    </member>
+    <member name="M:Vuforia.DatasetTracker.DeactivateDataSet(Vuforia.DataSet)">
+      <summary>
+            Deactivates the given dataset.
+            This can only be done when the tracker is not running.
+            </summary>
+    </member>
+    <member name="M:Vuforia.DatasetTracker.GetActiveDataSets">
+      <summary>
+            Returns the currently activated datasets. 
+            </summary>
+    </member>
+    <member name="M:Vuforia.DatasetTracker.GetDataSets">
+      <summary>
+            Returns all datasets.
+            </summary>
+    </member>
+    <member name="M:Vuforia.DatasetTracker.DestroyAllDataSets(System.Boolean)">
+      <summary>
+            Deactivates the currently active dataset and
+            destroys all datasets
+            </summary>
+    </member>
+    <!-- Badly formed XML comment ignored for member "M:Vuforia.AreaTargetBehaviour.InternalUnregisterTrackable" -->
+    <member name="P:Vuforia.AreaTargetBehaviour.AreaTarget">
+      <summary>
+            The AreaTarget that this AreaTargetBehaviour augments
+            </summary>
+    </member>
+    <member name="P:Vuforia.AreaTargetBehaviour.Size">
+      <summary>
+            Get the size (width, height, length) of the Area Target
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="P:Vuforia.AreaTargetBehaviour.BoundingBox">
+      <summary>
+            Returns the bounding box  of the target (in 3D scene units).
+            </summary>
+    </member>
+    <member name="M:Vuforia.AreaTargetBehaviour.SetExternalPosition(UnityEngine.Vector2,System.Single)">
+      <summary>
+            Set approximate position within the target from an external localization source.
+            </summary>
+      <param name="position">Position (x, z) in target coordinate system (which is y-up)</param>
+      <param name="radius">Uncertainty of the position in meters. Must be positive</param>
+      <returns>true on success, false on failure</returns>
+    </member>
+    <member name="T:Vuforia.AreaTracker">
+      <summary>
+            The AreaTracker encapsulates methods to manage DataSets for Area Targets 
+            </summary>
+    </member>
+    <member name="T:Vuforia.AreaTarget">
+      <summary>
+            A trackable that represents a AreaTarget object
+            </summary>
+    </member>
+    <member name="M:Vuforia.AreaTarget.GetBoundingBox">
+      <summary>
+            Returns the bounding box  of the target (in 3D scene units).
+            </summary>
+    </member>
+    <member name="M:Vuforia.AreaTarget.GetSize">
+      <summary>
+            Returns the size (width, height and depth) of the area target
+            </summary>
+    </member>
+    <member name="M:Vuforia.AreaTarget.SetExternalPosition(UnityEngine.Vector2,System.Single)">
+      <summary>
+            Set approximate position within the target from an external localization source.
+            </summary>
+      <param name="position">Position (x, z) in target coordinate system (which is y-up)</param>
+      <param name="radius">Uncertainty of the position in meters. Must be positive</param>
+      <returns>true on success, false on failure</returns>
+    </member>
     <member name="T:Vuforia.ImageTargetFinder">
       <summary>
             This class represents a service that retrieves image targets using cloud-based recognition.
@@ -142,6 +349,11 @@
       <param name="textureFormat">The texture format of the image</param>
       <param name="widthInMeters">The real world size of the target in meters</param>
       <param name="targetName">The name of the resulting trackable</param>
+    </member>
+    <member name="T:Vuforia.ScalableDataSetTrackableBehaviour">
+      <summary>
+            This is the base class for all trackables that are part of a dataset and are scalable
+            </summary>
     </member>
     <member name="T:Vuforia.IlluminationManager">
       <summary>
@@ -772,6 +984,34 @@
             available on the current device for Vuforia Fusion.
             </summary>
     </member>
+    <member name="M:Vuforia.GLBHelper.IsBinaryGlTF(System.Byte[]@)">
+      <summary>
+            Function to check if a byte array contains a binary gltf file
+            </summary>
+      <param name="path">binary data</param>
+      <returns>If it is a binary glTF</returns>
+    </member>
+    <member name="M:Vuforia.GLBHelper.ExtractGLBResources(System.String,System.String@,System.Byte[]@)">
+      <summary>
+            This function takes the path to a glb (version 2) and is able to extract the gltf json and the binary blob from it
+            </summary>
+      <param name="path">Path to glb file</param>
+      <param name="glTFJson">Resulting gltf</param>
+      <param name="binaryBuffer">Resulting binary blob</param>
+      <returns>if successfull</returns>
+    </member>
+    <member name="M:Vuforia.GLTFModelCreator.ExtractModel(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Byte[]},UnityEngine.Material,System.Boolean)">
+      <summary>
+            Extracts the glTF model at the give path, with the help of the cashed files
+            Used for Model Target or Area Target extraction run-time
+            </summary>
+      <param name="path">The path to the glTF model</param>
+      <param name="jsonString">Contents of the glTF file</param>
+      <param name="cachedFiles">Cached files of external dependencies to glTF</param>
+      <param name="customMaterial">A custom material to apply to the extracted model. If you want to use textures, the material must be based on Unity's "Standard" material</param>
+      <param name="extractTextures">Set this option to false if you do not intend to use the textures defined in the GLTF. They will never be extracted, potentially saving a large amount of memory</param>
+      <returns>The gameObject that is created from the glTF file</returns>
+    </member>
     <member name="T:Vuforia.PIXEL_FORMAT">
       <summary>
             Pixel encoding types
@@ -1309,6 +1549,14 @@
             How many object targets to detect and track at the same time
             </summary>
     </member>
+    <member name="P:Vuforia.VuforiaConfiguration.GenericVuforiaConfiguration.VirtualSceneScaleFactor">
+      <summary>
+            This factor configures how many Unity scene units correspond 
+            to one meter in the physical world. Poses reported by Vuforia will be transformed 
+            accordingly. Scene content will not be scaled. Note that on HoloLens and 
+            MagicLeap, a factor other than 1.0 is not supported.
+            </summary>
+    </member>
     <member name="P:Vuforia.VuforiaConfiguration.GenericVuforiaConfiguration.UseDelayedLoadingObjectTargets">
       <summary>
             Loading for object target datasets can be delayed upon first detection
@@ -1328,7 +1576,7 @@
             Enable or disable rendering the video background
             </summary>
     </member>
-    <member name="P:Vuforia.VuforiaConfiguration.TrackerConfiguration.AutoInitAndStartTracker">
+    <member name="P:Vuforia.VuforiaConfiguration.DeviceTrackerConfiguration.AutoInitAndStartTracker">
       <summary>
             Whether the tracker is automatically initialized and started
             in a new scene
@@ -1690,120 +1938,6 @@
             Get or set the bottom diameter. Changing this value uniformly scales the target.
             </summary>
     </member>
-    <member name="T:Vuforia.DataSet">
-      <summary>
-            This class represents a dataset that can be loaded and holds a collection of trackables.
-            Trackables can also be created and destroyed at runtime.
-            </summary>
-    </member>
-    <member name="T:Vuforia.DataSet.StorageType">
-      <summary>
-            Storage type is used to interpret a given path string.
-            </summary>
-    </member>
-    <member name="F:Vuforia.DataSet.StorageType.STORAGE_APP">
-      <summary>Indicates a relative path to an app local storage location.</summary>
-    </member>
-    <member name="F:Vuforia.DataSet.StorageType.STORAGE_APPRESOURCE">
-      <summary>Indicates a relative path to a resource bundled with the application.</summary>
-    </member>
-    <member name="F:Vuforia.DataSet.StorageType.STORAGE_ABSOLUTE">
-      <summary>Indicates an absolute path.</summary>
-    </member>
-    <member name="P:Vuforia.DataSet.Path">
-      <summary>
-            Returns the path to the data set.
-            </summary>
-    </member>
-    <member name="P:Vuforia.DataSet.FileStorageType">
-      <summary>
-            Returns the storage type of the data set.
-            </summary>
-    </member>
-    <member name="M:Vuforia.DataSet.Exists(System.String)">
-      <summary>
-            Checks if a data set exists at the default "StreamingAssets/Vuforia" directory
-            </summary>
-    </member>
-    <member name="M:Vuforia.DataSet.Exists(System.String,Vuforia.VuforiaUnity.StorageType)">
-      <summary>
-            Checks if a data set exists at the given path.
-            Storage type is used to correctly interpret the given path.
-            </summary>
-    </member>
-    <member name="M:Vuforia.DataSet.Load(System.String)">
-      <summary>
-            Loads a data set from the default "StreamingAssets/Vuforia" directory.
-            </summary>
-    </member>
-    <member name="M:Vuforia.DataSet.Load(System.String,Vuforia.VuforiaUnity.StorageType)">
-      <summary>
-            Loads data set from the given path.
-            Storage type is used to correctly interpret the given path.
-            </summary>
-    </member>
-    <member name="M:Vuforia.DataSet.GetTrackables">
-      <summary>
-            Returns the trackables that are defined in the data set.
-            </summary>
-    </member>
-    <member name="M:Vuforia.DataSet.CreateTrackable(Vuforia.TrackableSource,System.String)">
-      <summary>
-            Creates a new trackable behaviour attached to a new gameobject with the given name and adds it to this dataset
-            </summary>
-    </member>
-    <member name="M:Vuforia.DataSet.CreateTrackable(Vuforia.TrackableSource,UnityEngine.GameObject)">
-      <summary>
-            Adds a single trackable from a source and a given gameobject to this dataset
-            </summary>
-    </member>
-    <member name="M:Vuforia.DataSet.Destroy(Vuforia.Trackable,System.Boolean)">
-      <summary>
-            This method must not be called while the dataset is active or it will return false.
-            </summary>
-    </member>
-    <member name="M:Vuforia.DataSet.HasReachedTrackableLimit">
-      <summary>
-            Checks if this DataSet's Trackable capacity is reached.
-            Returns true if the number of Trackables created in this DataSet
-            has reached the maximum capacity, false otherwise.
-            </summary>
-    </member>
-    <member name="M:Vuforia.DataSet.Contains(Vuforia.Trackable)">
-      <summary>
-            Checks if the given trackable is contained in the DataSet
-            </summary>
-    </member>
-    <member name="M:Vuforia.DataSet.DestroyAllTrackables(System.Boolean)">
-      <summary>
-            Destroys all existing trackables
-            </summary>
-    </member>
-    <member name="T:Vuforia.DatabaseLoadARController">
-      <summary>
-            This behaviour allows to automatically load and activate one or more DataSet on startup
-            </summary>
-    </member>
-    <member name="M:Vuforia.DatabaseLoadARController.LoadDatasets">
-      <summary>
-            Load Datasets is automatically called by VuforiaARController after Vuforia has been initialized correctly
-            </summary>
-    </member>
-    <member name="M:Vuforia.DatabaseLoadARController.AddExternalDatasetSearchDir(System.String)">
-      <summary>
-            Add an external path to search for datasets, useful when loading datasets from another location or using Android's OBB feature
-            </summary>
-    </member>
-    <member name="T:Vuforia.DataSetTrackableBehaviour">
-      <summary>
-            This is the base class for all trackables that are part of a dataset
-            </summary>
-    </member>
-    <member name="T:Vuforia.ObjectTargetData">
-      <summary>
-            The basic data struct for an Object Target.
-            </summary>
-    </member>
     <member name="T:Vuforia.ObjectTarget">
       <summary>
             A trackable that represents a ObjectTarget object
@@ -1862,7 +1996,7 @@
     <member name="T:Vuforia.OrientedBoundingBox3D">
       <summary>
             This struct defines a 3D box oriented around the Y axis.
-            It is internally used for defining the oriented bounding box of tword trackables
+            It is internally used for defining the oriented bounding box of two trackables
             </summary>
     </member>
     <member name="P:Vuforia.OrientedBoundingBox3D.Center">
@@ -2238,7 +2372,7 @@
     </member>
     <member name="T:Vuforia.ObjectTracker">
       <summary>
-            The ObjectTracker encapsulates methods to manage DataSets and provides access to
+            The ObjectTracker encapsulates methods to manage DataSets for Object Targets and provides access to
             the ImageTargetBuilder and TargetFinder classes
             </summary>
     </member>
@@ -2251,45 +2385,6 @@
       <summary>
             Returns the RuntimeImageSource that should be used if you want to
             generate Instant ImageTargets (at runtime) from external image sources (e.g. texture, file, raw buffer).
-            </summary>
-    </member>
-    <member name="M:Vuforia.ObjectTracker.CreateDataSet">
-      <summary>
-            Creates a new empty dataset.
-            </summary>
-    </member>
-    <member name="M:Vuforia.ObjectTracker.DestroyDataSet(Vuforia.DataSet,System.Boolean)">
-      <summary>
-            Destroy the given dataset.
-            Returns false if the given dataset is active.
-            </summary>
-    </member>
-    <member name="M:Vuforia.ObjectTracker.ActivateDataSet(Vuforia.DataSet)">
-      <summary>
-            Activates the given dataset.
-            Datasets can only be activated when the tracker is not running.
-            </summary>
-    </member>
-    <member name="M:Vuforia.ObjectTracker.DeactivateDataSet(Vuforia.DataSet)">
-      <summary>
-            Deactivates the given dataset.
-            This can only be done when the tracker is not running.
-            </summary>
-    </member>
-    <member name="M:Vuforia.ObjectTracker.GetActiveDataSets">
-      <summary>
-            Returns the currently activated datasets. 
-            </summary>
-    </member>
-    <member name="M:Vuforia.ObjectTracker.GetDataSets">
-      <summary>
-            Returns all datasets.
-            </summary>
-    </member>
-    <member name="M:Vuforia.ObjectTracker.DestroyAllDataSets(System.Boolean)">
-      <summary>
-            Deactivates the currently active dataset and
-            destroys all datasets
             </summary>
     </member>
     <member name="M:Vuforia.ObjectTracker.GetTargetFinder``1">
@@ -3010,6 +3105,11 @@
     <member name="M:Vuforia.VuforiaRuntimeUtilities.IsPlayMode">
       <summary>
             returns ONLY true if we are running in Play Mode
+            </summary>
+    </member>
+    <member name="M:Vuforia.VuforiaRuntimeUtilities.IsSimulatorMode">
+      <summary>
+            returns ONLY true if we are running in Play Mode in Simulator Mode
             </summary>
     </member>
     <member name="M:Vuforia.VuforiaRuntimeUtilities.IsWSARuntime">

@@ -5,7 +5,7 @@ To view the SDK license agreement, go to https://developer.vuforia.com/legal/vuf
 To view the release notes, go to https://developer.vuforia.com/library/release-notes
 
 /*============================================================================
-            Copyright (c) 2010-2017 PTC Inc.
+            Copyright (c) 2010-2020 PTC Inc.
             All Rights Reserved.
             Confidential and Proprietary - PTC Inc.
   ============================================================================*/

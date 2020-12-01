@@ -67,12 +67,17 @@ Shader "Custom/DepthContour" {
                 // calculate silhouette in image space
                 float3 normal = mul((float3x3)UNITY_MATRIX_IT_MV, input.normal);
                 float2 normalScreen = TransformViewToProjection(normal.xy);
-                
-                output.position /= output.position.w; 
-                
+                               
                 float2 screenOffset = _SilhouetteSize * normalize(normalScreen);
-                output.position.x += screenOffset.x / (_ScreenParams.x * 0.5);
-                output.position.y += screenOffset.y / (_ScreenParams.y * 0.5);
+                
+                float2 xyOffset;
+                xyOffset.x = screenOffset.x / (_ScreenParams.x * 0.5);
+                xyOffset.y = screenOffset.y / (_ScreenParams.y * 0.5);
+                // denormalize the screenspace offset, so it is correct after projective division by w
+                // dividing output.position by w here would interfer with culling
+                xyOffset *= output.position.w;
+                
+                output.position.xy += xyOffset;
                 
                 return output;
             }

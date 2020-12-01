@@ -4878,6 +4878,40 @@
             Entry name exceeds the maximum length
             </exception>
     </member>
+    <member name="T:Vuforia.EditorClasses.SerializedAreaTarget">
+      <summary>
+            This class provides utility properties to a serialized object
+            targeting an AreaTargetBehaviour
+            </summary>
+    </member>
+    <member name="T:Vuforia.EditorClasses.AreaTargetEditor">
+      <summary>
+            Editor class for AreaTargetBehaviours
+            </summary>
+    </member>
+    <member name="M:Vuforia.EditorClasses.AreaTargetEditor.EditorConfigureTarget(Vuforia.AreaTargetBehaviour,Vuforia.EditorClasses.SerializedAreaTarget)">
+      <summary>
+            Configure the Area Target in this custom editor.
+            </summary>
+      <param name="etb">name of the object for the configuration</param>
+    </member>
+    <member name="M:Vuforia.EditorClasses.AreaTargetEditor.OnEnable">
+      <summary>
+            Initializes the Area Target when it is drag-dropped into the scene.
+            </summary>
+    </member>
+    <member name="M:Vuforia.EditorClasses.AreaTargetEditor.OnInspectorGUI">
+      <summary>
+            Lets the user choose a Area Target from a drop down list. Area Target
+            must be defined in the "config.xml" file.
+            </summary>
+    </member>
+    <member name="M:Vuforia.EditorClasses.AreaTargetEditor.HasPreviewGUI">
+      <summary>
+            You can also use it to disable or enable preview depending on the target asset
+            </summary>
+    </member>
+    <!-- Badly formed XML comment ignored for member "M:Vuforia.EditorClasses.CADModelExtractor.ReadAreaTargetModels" -->
     <member name="T:Vuforia.EditorClasses.ModelTargetEditor">
       <summary>
             Editor class for ModelTargetBehaviours
@@ -5157,7 +5191,7 @@
             </summary>
             This method configures the cylinder target behaviour when it is first opened in the editor
             It assigns the default dataset and creates game objects for visualizing the cylinder.
-            The result is equal to the CylinderTarget-prefab, even when the script is manually added to a 
+            The result is equal to the CylinderTarget-prefab, even when the script is manually added to a
             gameobject.
         </member>
     <member name="M:Vuforia.EditorClasses.CylinderTargetEditor.OnEnable">
@@ -5316,7 +5350,7 @@
     </member>
     <member name="M:Vuforia.EditorClasses.VuMarkEditor.OnInspectorGUI">
       <summary>
-            Lets the user choose a VuMark-Template from a drop down list. 
+            Lets the user choose a VuMark-Template from a drop down list.
             </summary>
     </member>
     <member name="T:PlatformChangeObserver">
