@@ -114,6 +114,8 @@
     <member name="M:Vuforia.RuntimeImageSource.SetFile(Vuforia.VuforiaUnity.StorageType,System.String,System.Single,System.String)">
       <summary>
             Set the RuntimeImageSource to the image found at the path provided.
+            When using VuforiaUnity.StorageType.STORAGE_APPRESOURCE as storage type on iOS, the used images 
+            must be located in the StreamingAssets/Vuforia folder. 
             </summary>
       <param name="storageType">The type of the path provided</param>
       <param name="filePath">File the location of the image to be used as target</param>
