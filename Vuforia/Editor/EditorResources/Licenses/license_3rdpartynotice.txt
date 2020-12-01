@@ -1,9 +1,9 @@
-Vuforia SDK v9.1.7
+Vuforia SDK v9.2.7
 PTC Inc.
 =============================================================
 
 This Readme file contains certain notices of software components
-included with the Vuforia SDK v9.1.7 that 
+included with the Vuforia SDK v9.2.7 that 
 PTC Inc. is required to provide you. Notwithstanding anything in the
  notices in this file, your use of these software components together
 with the Vuforia SDK is subject to the terms of your license from 
@@ -6070,3 +6070,38 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+-------------------------------------------------------------------------------
+Magic Leap Lumin SDK 0.24.1
+-------------------------------------------------------------------------------
+
+// Copyright (c) 2019 Magic Leap, Inc. (COMPANY) All Rights Reserved.
+// Magic Leap, Inc. Confidential and Proprietary
+//
+// NOTICE:  All information contained herein is, and remains the property
+// of COMPANY. The intellectual and technical concepts contained herein
+// are proprietary to COMPANY and may be covered by U.S. and Foreign
+// Patents, patents in process, and are protected by trade secret or
+// copyright law.  Dissemination of this information or reproduction of
+// this material is strictly forbidden unless prior written permission is
+// obtained from COMPANY.  Access to the source code contained herein is
+// hereby forbidden to anyone except current COMPANY employees, managers
+// or contractors who have executed Confidentiality and Non-disclosure
+// agreements explicitly covering such access.
+//
+// The copyright notice above does not evidence any actual or intended
+// publication or disclosure  of  this source code, which includes
+// information that is confidential and/or proprietary, and is a trade
+// secret, of  COMPANY.   ANY REPRODUCTION, MODIFICATION, DISTRIBUTION,
+// PUBLIC  PERFORMANCE, OR PUBLIC DISPLAY OF OR THROUGH USE  OF THIS
+// SOURCE CODE  WITHOUT THE EXPRESS WRITTEN CONSENT OF COMPANY IS
+// STRICTLY PROHIBITED, AND IN VIOLATION OF APPLICABLE LAWS AND
+// INTERNATIONAL TREATIES.  THE RECEIPT OR POSSESSION OF  THIS SOURCE
+// CODE AND/OR RELATED INFORMATION DOES NOT CONVEY OR IMPLY ANY RIGHTS
+// TO REPRODUCE, DISCLOSE OR DISTRIBUTE ITS CONTENTS, OR TO MANUFACTURE,
+// USE, OR SELL ANYTHING THAT IT  MAY DESCRIBE, IN WHOLE OR IN PART.
+
+Third party open source components (OSS) in Magic Leap Lumin SDK are listed
+here: https://www.magicleap.com/en-us/legal/oss-notices
+

@@ -630,6 +630,8 @@
             when objects are moved
             </summary>
     </member>
+    <!-- Badly formed XML comment ignored for member "F:Vuforia.ModelTargetTrackingMode.CAR" -->
+    <!-- Badly formed XML comment ignored for member "F:Vuforia.ModelTargetTrackingMode.SCAN" -->
     <member name="T:Vuforia.ModelTarget">
       <summary>
             A trackable behaviour to represent a flat natural feature target.
@@ -669,6 +671,25 @@
       <summary>
             Get the motion hint, which can be STATIC with hint == 0 or ADAPTIVE with hint == 1.
             </summary>
+    </member>
+    <member name="M:Vuforia.ModelTarget.SetTrackingMode(Vuforia.ModelTargetTrackingMode)">
+      <summary>
+             This hint modifies the internal Model Target tracking parameters to optimize
+             the tracking quality and robustness for different target types.
+            
+             \note Only changes between 'DEFAULT' and 'CAR' are supported.
+            
+             \note The DataSet this target belongs to must be deactivated when this
+             function is called.
+            
+             <param name="mode">The tracking mode.</param><returns>true if the mode was set successfully, or false if the DataSet is
+             active or the operation is not supported.</returns></summary>
+    </member>
+    <member name="M:Vuforia.ModelTarget.GetTrackingMode">
+      <summary>
+            For more details on the meaning of the value, please see the
+            documentation of setTrackingMode().
+            <returns>The current tracking mode of this target.</returns></summary>
     </member>
     <member name="T:Vuforia.ModelTargetBehaviour">
       <summary>
@@ -1576,6 +1597,12 @@
       <summary>
             Controls ARCore support setting in the Android Manifest of the app, see:
             https://developers.google.com/ar/develop/java/enable-arcore
+            </summary>
+    </member>
+    <member name="P:Vuforia.VuforiaConfiguration.DeviceTrackerConfiguration.UseThirdPartySeethroughEyewear">
+      <summary>
+            Sets up Vuforia to allow additional, not officially supported Eyewear devices. Setting this option will disable video background rendering
+            and will surpress device pose updates. Pose updates must be performed by the application instead.
             </summary>
     </member>
     <member name="P:Vuforia.VuforiaConfiguration.Instance">
@@ -2871,15 +2898,6 @@
     <member name="M:Vuforia.VuforiaRenderer.ClearVideoBackgroundConfig">
       <summary>
             clears the config of the videobackground when Vuforia is stopped.
-            [DEPRECATED]
-            </summary>
-    </member>
-    <!-- Badly formed XML comment ignored for member "M:Vuforia.VuforiaRenderer.createNativeTexture(System.Int32,System.Int32,System.Int32)" -->
-    <member name="M:Vuforia.VuforiaRenderer.SetVideoBackgroundTexturePtr(UnityEngine.Texture)">
-      <summary>
-            Tells Vuforia the texture pointer to use for updating video background data.
-            When using multihreaded rendering this texture ID needs to be resolved in an Awake method
-            (texture.GetNativeTexturePtr())
             [DEPRECATED]
             </summary>
     </member>
