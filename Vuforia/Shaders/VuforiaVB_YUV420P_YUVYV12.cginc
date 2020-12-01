@@ -44,7 +44,7 @@ half4 vuforiaConvertRGBFrag(v2f i) : COLOR
 {
     half4 c;
     half y = tex2D(_MainTex, i.uv ).r;
-#if(VUFORIA_YUV420P)
+#if VUFORIA_YUV420P
     half u = tex2D(_UVTex1, i.uv2).r;
     half v = tex2D(_UVTex2, i.uv3).r;
 #else

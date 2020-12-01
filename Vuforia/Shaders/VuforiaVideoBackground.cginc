@@ -17,9 +17,9 @@ specific language governing permissions and limitations under the License.
 #define VUFORIA_VB_INCLUDED
 
 
-#if(VUFORIA_YUVNV12 || VUFORIA_YUVNV21)
+#if VUFORIA_YUVNV12 || VUFORIA_YUVNV21
 #include "VuforiaVB_YUVNV12_YUVNV21.cginc"
-#elif(VUFORIA_YUV420P || VUFORIA_YUVYV12)
+#elif VUFORIA_YUV420P || VUFORIA_YUVYV12
 #include "VuforiaVB_YUV420P_YUVYV12.cginc"
 #else
 #include "VuforiaVB_RGB.cginc"
