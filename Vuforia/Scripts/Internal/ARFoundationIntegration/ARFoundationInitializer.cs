@@ -44,7 +44,6 @@ namespace Vuforia.UnityRuntimeCompiled.ARFoundationIntegration
     class OpenSourceUnityARFoundationFacade : IUnityARFoundationFacade
     {
         ARCameraManager   mCameraManager;
-        ARPoseDriver      mPoseDriver;
         ARAnchorManager   mAnchorManager;
         ARSession         mSession;
         ARSessionOrigin   mSessionOrigin;
@@ -71,7 +70,6 @@ namespace Vuforia.UnityRuntimeCompiled.ARFoundationIntegration
         public void FindDependencies()
         {
             mCameraManager = GameObject.FindObjectOfType<ARCameraManager>();
-            mPoseDriver = GameObject.FindObjectOfType<ARPoseDriver>();
             mSession = GameObject.FindObjectOfType<ARSession>();
             mSessionOrigin = GameObject.FindObjectOfType<ARSessionOrigin>();
             mRaycastManager = GameObject.FindObjectOfType<ARRaycastManager>();
@@ -110,9 +108,9 @@ namespace Vuforia.UnityRuntimeCompiled.ARFoundationIntegration
             return ARSession.state >= ARSessionState.Ready;
         }
 
-        public Transform GetPose()
+        public Transform GetCameraTransform()
         {
-            return mPoseDriver.transform;
+            return mCameraManager.transform;
         }
 
         public List<CameraMode> GetProfiles()
@@ -175,6 +173,8 @@ namespace Vuforia.UnityRuntimeCompiled.ARFoundationIntegration
                 return;
 
             var timestamp = eventArgs.timestampNs ?? (long)(cameraImage.timestamp*1000000000);
+            ARFoundationPoseEvent(mCameraManager.transform, timestamp);
+
             var image = new ARFoundationImage(
                 cameraImage.GetPlane(0).data,
                 cameraImage.GetPlane(1).data,
@@ -190,8 +190,8 @@ namespace Vuforia.UnityRuntimeCompiled.ARFoundationIntegration
                 cameraIntrinsics.principalPoint,
                 cameraIntrinsics.focalLength
             );
+
             ARFoundationImageEvent.Invoke(image);
-            ARFoundationPoseEvent(mPoseDriver.transform, timestamp);
             cameraImage.Dispose();
         }
 

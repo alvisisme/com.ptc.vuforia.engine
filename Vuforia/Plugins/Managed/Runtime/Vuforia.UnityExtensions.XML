@@ -63,7 +63,7 @@
       <returns>
       </returns>
     </member>
-    <member name="M:Vuforia.IUnityARFoundationFacade.GetPose">
+    <member name="M:Vuforia.IUnityARFoundationFacade.GetCameraTransform">
       <summary>
             Gets the transform of AR Pose Driver object.
             Device pose is applied to that object by AR Foundation.
@@ -378,7 +378,7 @@
     </member>
     <member name="M:Vuforia.DataSet.CreateTrackable(Vuforia.TrackableSource,UnityEngine.GameObject)">
       <summary>
-            Adds a single trackable from a source and a given gameobject to this dataset
+            Adds a single trackable from a source and a given gameobject to this dataset. Use to create Instant Image Targets
             </summary>
     </member>
     <member name="M:Vuforia.DataSet.Destroy(Vuforia.Trackable,System.Boolean)">
@@ -2420,85 +2420,6 @@
             Returns false if the corresponding DataSet is currently active.
             </summary>
     </member>
-    <member name="T:Vuforia.ImageTargetBuilder">
-      <summary>
-            This class encapsulates all functionality needed to create a user defined target on the fly.
-            </summary>
-    </member>
-    <member name="T:Vuforia.ImageTargetBuilder.FrameQuality">
-      <summary>
-            The frame quality is used to determine if the current frame can be used to create a good target
-            </summary>
-    </member>
-    <member name="F:Vuforia.ImageTargetBuilder.FrameQuality.FRAME_QUALITY_NONE">
-      <summary>
-            getFrameQuality was called oustside of scanning mode
-            </summary>
-    </member>
-    <member name="F:Vuforia.ImageTargetBuilder.FrameQuality.FRAME_QUALITY_LOW">
-      <summary>
-            Poor number of features for tracking
-            </summary>
-    </member>
-    <member name="F:Vuforia.ImageTargetBuilder.FrameQuality.FRAME_QUALITY_MEDIUM">
-      <summary>
-            Sufficient number features for tracking
-            </summary>
-    </member>
-    <member name="F:Vuforia.ImageTargetBuilder.FrameQuality.FRAME_QUALITY_HIGH">
-      <summary>
-            Ideal number of features for tracking
-            </summary>
-    </member>
-    <member name="M:Vuforia.ImageTargetBuilder.Build(System.String,System.Single)">
-      <summary>
-            Build an Image Target Trackable source from the next available camera frame 
-            
-            Build an Image Target Trackable Source from the next available camera frame.
-            This is an asynchronous process, the result of which will be available from
-            getTrackableSource()
-            
-            This method will return true if the build was successfully started, and false
-            if an invalid name or screenSizeWidth is provided.
-            </summary>
-    </member>
-    <member name="M:Vuforia.ImageTargetBuilder.StartScan">
-      <summary>
-            Start the scanning mode, allowing calls to getFrameQuality()
-            </summary>
-    </member>
-    <member name="M:Vuforia.ImageTargetBuilder.StopScan">
-      <summary>
-            Stop the scanning mode, getFrameQuality will return FRAME_QUALITY_NONE until
-            startScan is called again.  Stopping scan mode will reduce the overall system
-            utilization when not building ImageTargets.
-            </summary>
-    </member>
-    <member name="M:Vuforia.ImageTargetBuilder.GetFrameQuality">
-      <summary>
-            Get frame quality, available after startScan is called.
-            
-            Will return the frame quality for the last available camera frame, a value
-            of FRAME_QUALITY_NONE will be returned if the scanning mode was not enabled.
-            via the startScan() method.
-            
-            This methods makes a marshalling call into native, so buffer the result
-            instead of calling it multiple times a frame for better performance.
-            </summary>
-    </member>
-    <member name="M:Vuforia.ImageTargetBuilder.GetTrackableSource">
-      <summary>
-            Returns a trackable source object to be used in adding a new target to a dataset
-            
-            This method will return a TrackableSource to be provided to the DataSet.  This 
-            API will return NULL until a trackable source is available.  This trackable
-            source will be provided via this api until build() is called again, at which
-            point it will return NULL again until a successful build step has occured.
-            
-            This methods makes a marshalling call into native, so buffer the result
-            instead of calling it multiple times a frame for better performance.
-            </summary>
-    </member>
     <!-- Badly formed XML comment ignored for member "M:Vuforia.IPlayModeEditorUtility.SetEditorPrefsString(System.String,System.String)" -->
     <!-- Badly formed XML comment ignored for member "M:Vuforia.IPlayModeEditorUtility.CopyAndPasteComponentToTarget(UnityEngine.Component,UnityEngine.GameObject)" -->
     <member name="T:Vuforia.StateManager">
@@ -2605,13 +2526,7 @@
     </member>
     <member name="T:Vuforia.ObjectTracker">
       <summary>
-            The ObjectTracker encapsulates methods to manage DataSets for Object Targets and provides access to
-            the ImageTargetBuilder and TargetFinder classes
-            </summary>
-    </member>
-    <member name="P:Vuforia.ObjectTracker.ImageTargetBuilder">
-      <summary>
-            exposes the ImageTargetBuilder member to other classes
+            The ObjectTracker encapsulates methods to manage DataSets for Object Targets
             </summary>
     </member>
     <member name="P:Vuforia.ObjectTracker.RuntimeImageSource">
@@ -3369,6 +3284,11 @@
             initializing Vuforia Engine, the function returns INVALID_OPERATION.
             </summary>
     </member>
+    <member name="M:Vuforia.VuforiaRuntimeUtilities.DestroyAllDataSetsAndTrackables">
+      <summary>
+            Destroys all the currently loaded DataSets and all the associated Trackables.
+            </summary>
+    </member>
     <member name="T:Vuforia.SurfaceUtilities">
       <summary>
             This class publicly exposes native methods that are related to surface management.
@@ -3902,78 +3822,6 @@
       <summary>
             Returns the state manager instance that can be used to access
             all currently tracked TrackableBehaviours
-            </summary>
-    </member>
-    <member name="T:Vuforia.UserDefinedTargetBuildingBehaviour">
-      <summary>
-            This Component can be used to create new ImageTargets at runtime. It can be configured to start scanning automatically
-            or via a call from an external script.
-            Registered event handlers will be informed of changes in the frame quality as well as new TrackableSources
-            </summary>
-    </member>
-    <member name="F:Vuforia.UserDefinedTargetBuildingBehaviour.StopTrackerWhileScanning">
-      <summary>
-            if the tracker should be stopped when scanning is started and resumed when scanning is stopped
-            </summary>
-    </member>
-    <member name="F:Vuforia.UserDefinedTargetBuildingBehaviour.StartScanningAutomatically">
-      <summary>
-            if this is set to true, scanning will start automatically when this component is activated
-            </summary>
-    </member>
-    <member name="F:Vuforia.UserDefinedTargetBuildingBehaviour.StopScanningWhenFinshedBuilding">
-      <summary>
-            if scanning should be stopped automatically when a new target is built
-            </summary>
-    </member>
-    <member name="M:Vuforia.UserDefinedTargetBuildingBehaviour.RegisterOnInitializedEventHandler(System.Action)">
-      <summary>
-            Register for event that's called when the UserDefinedTargetBehaviour has been initialized
-            </summary>
-    </member>
-    <member name="M:Vuforia.UserDefinedTargetBuildingBehaviour.UnregisterOnInitializedEventHandler(System.Action)">
-      <summary>
-            Unregister from event that's called when the UserDefinedTargetBehaviour has been initialized
-            </summary>
-    </member>
-    <member name="M:Vuforia.UserDefinedTargetBuildingBehaviour.RegisterOnFrameQualityChangedEventHandler(System.Action{Vuforia.ImageTargetBuilder.FrameQuality})">
-      <summary>
-            Register for event that's called when the UserDefinedTargetBehaviour reports a new frame Quality
-            </summary>
-    </member>
-    <member name="M:Vuforia.UserDefinedTargetBuildingBehaviour.UnregisterOnFrameQualityChangedEventHandler(System.Action{Vuforia.ImageTargetBuilder.FrameQuality})">
-      <summary>
-            Unregister from event that's called when the UserDefinedTargetBehaviour reports a new frame Quality
-            </summary>
-    </member>
-    <member name="M:Vuforia.UserDefinedTargetBuildingBehaviour.RegisterOnNewTrackableSourceEventHandler(System.Action{Vuforia.TrackableSource})">
-      <summary>
-            Register for event that's called when a new trackable source is available
-            </summary>
-    </member>
-    <member name="M:Vuforia.UserDefinedTargetBuildingBehaviour.UnregisterOnNewTrackableSourceEventHandler(System.Action{Vuforia.TrackableSource})">
-      <summary>
-            Unregister from event that's called when a new trackable source is available
-            </summary>
-    </member>
-    <member name="M:Vuforia.UserDefinedTargetBuildingBehaviour.StartScanning">
-      <summary>
-            Starts scanning the current camera image for features. 
-            This will trigger callbacks to the registered event handlers whenever the
-            frame quality changes.
-            If 'StopTrackerWhileScanning' is set, this will stop the ObjectTracker
-            </summary>
-    </member>
-    <member name="M:Vuforia.UserDefinedTargetBuildingBehaviour.BuildNewTarget(System.String,System.Single)">
-      <summary>
-            This will start building a new target and report back to the event handlers as soon
-            as a new TrackableSource is available.
-            </summary>
-    </member>
-    <member name="M:Vuforia.UserDefinedTargetBuildingBehaviour.StopScanning">
-      <summary>
-            Stops scanning, event handlers will be informed.
-            If 'StopTrackerWhileScanning' is set, this will resume the ObjectTracker
             </summary>
     </member>
     <member name="T:Vuforia.VideoBackgroundBehaviour">

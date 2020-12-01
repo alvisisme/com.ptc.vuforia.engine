@@ -4911,7 +4911,7 @@
             You can also use it to disable or enable preview depending on the target asset
             </summary>
     </member>
-    <!-- Badly formed XML comment ignored for member "M:Vuforia.EditorClasses.CADModelExtractor.ReadAreaTargetModels" -->
+    <!-- Badly formed XML comment ignored for member "M:Vuforia.EditorClasses.CADModelExtractor.CreateAreaTargetPrefabs" -->
     <member name="T:Vuforia.EditorClasses.ModelTargetEditor">
       <summary>
             Editor class for ModelTargetBehaviours
@@ -5291,21 +5291,6 @@
             Method opens up a browser Window with the specified URL.
             This method is called when "Release Notes" is chosen from the
             Unity "Help" menu.
-            </summary>
-    </member>
-    <member name="T:Vuforia.EditorClasses.UserDefinedTargetBuilderEditor">
-      <summary>
-            Editor for the UserDefinedTargetBuildingBehaviour
-            </summary>
-    </member>
-    <member name="M:Vuforia.EditorClasses.UserDefinedTargetBuilderEditor.OnInspectorGUI">
-      <summary>
-            Draws a custom UI for the UserDefinedTargetBehaviour inspector
-            </summary>
-    </member>
-    <member name="M:Vuforia.EditorClasses.UserDefinedTargetBuilderEditor.OnSceneGUI">
-      <summary>
-            Renders a label to visualize the UserDefinedTargetBehaviour
             </summary>
     </member>
     <member name="T:Vuforia.EditorClasses.VirtualButtonEditor">
