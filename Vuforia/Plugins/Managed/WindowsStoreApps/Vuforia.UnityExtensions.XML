@@ -10,6 +10,56 @@
             of an ARCamera.
             </summary>
     </member>
+    <member name="T:Vuforia.AreaTarget">
+      <summary>
+            A trackable that represents a AreaTarget object
+            </summary>
+    </member>
+    <member name="M:Vuforia.AreaTarget.GetBoundingBox">
+      <summary>
+            Returns the bounding box  of the target (in 3D scene units).
+            </summary>
+    </member>
+    <member name="M:Vuforia.AreaTarget.GetSize">
+      <summary>
+            Returns the size (width, height and depth) of the area target
+            </summary>
+    </member>
+    <member name="M:Vuforia.AreaTarget.SetExternalPosition(UnityEngine.Vector2,System.Single)">
+      <summary>
+            Set approximate position within the target from an external localization source.
+            </summary>
+      <param name="position">Position (x, z) in target coordinate system (which is y-up)</param>
+      <param name="radius">Uncertainty of the position in meters. Must be positive</param>
+      <returns>true on success, false on failure</returns>
+    </member>
+    <!-- Badly formed XML comment ignored for member "M:Vuforia.AreaTargetBehaviour.InternalUnregisterTrackable" -->
+    <member name="P:Vuforia.AreaTargetBehaviour.AreaTarget">
+      <summary>
+            The AreaTarget that this AreaTargetBehaviour augments
+            </summary>
+    </member>
+    <member name="P:Vuforia.AreaTargetBehaviour.Size">
+      <summary>
+            Get the size (width, height, length) of the Area Target
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="P:Vuforia.AreaTargetBehaviour.BoundingBox">
+      <summary>
+            Returns the bounding box  of the target (in 3D scene units).
+            </summary>
+    </member>
+    <member name="M:Vuforia.AreaTargetBehaviour.SetExternalPosition(UnityEngine.Vector2,System.Single)">
+      <summary>
+            Set approximate position within the target from an external localization source.
+            </summary>
+      <param name="position">Position (x, z) in target coordinate system (which is y-up)</param>
+      <param name="radius">Uncertainty of the position in meters. Must be positive</param>
+      <returns>true on success, false on failure</returns>
+    </member>
+    <!-- Badly formed XML comment ignored for member "M:Vuforia.AreaTargetBehaviour.DestroyPreviewVisualization" -->
     <member name="T:Vuforia.ARFoundationImage">
       <summary>
             Data container for camera Image captured from AR Foundation
@@ -452,59 +502,10 @@
             destroys all datasets
             </summary>
     </member>
-    <!-- Badly formed XML comment ignored for member "M:Vuforia.AreaTargetBehaviour.InternalUnregisterTrackable" -->
-    <member name="P:Vuforia.AreaTargetBehaviour.AreaTarget">
-      <summary>
-            The AreaTarget that this AreaTargetBehaviour augments
-            </summary>
-    </member>
-    <member name="P:Vuforia.AreaTargetBehaviour.Size">
-      <summary>
-            Get the size (width, height, length) of the Area Target
-            </summary>
-      <returns>
-      </returns>
-    </member>
-    <member name="P:Vuforia.AreaTargetBehaviour.BoundingBox">
-      <summary>
-            Returns the bounding box  of the target (in 3D scene units).
-            </summary>
-    </member>
-    <member name="M:Vuforia.AreaTargetBehaviour.SetExternalPosition(UnityEngine.Vector2,System.Single)">
-      <summary>
-            Set approximate position within the target from an external localization source.
-            </summary>
-      <param name="position">Position (x, z) in target coordinate system (which is y-up)</param>
-      <param name="radius">Uncertainty of the position in meters. Must be positive</param>
-      <returns>true on success, false on failure</returns>
-    </member>
     <member name="T:Vuforia.AreaTracker">
       <summary>
             The AreaTracker encapsulates methods to manage DataSets for Area Targets 
             </summary>
-    </member>
-    <member name="T:Vuforia.AreaTarget">
-      <summary>
-            A trackable that represents a AreaTarget object
-            </summary>
-    </member>
-    <member name="M:Vuforia.AreaTarget.GetBoundingBox">
-      <summary>
-            Returns the bounding box  of the target (in 3D scene units).
-            </summary>
-    </member>
-    <member name="M:Vuforia.AreaTarget.GetSize">
-      <summary>
-            Returns the size (width, height and depth) of the area target
-            </summary>
-    </member>
-    <member name="M:Vuforia.AreaTarget.SetExternalPosition(UnityEngine.Vector2,System.Single)">
-      <summary>
-            Set approximate position within the target from an external localization source.
-            </summary>
-      <param name="position">Position (x, z) in target coordinate system (which is y-up)</param>
-      <param name="radius">Uncertainty of the position in meters. Must be positive</param>
-      <returns>true on success, false on failure</returns>
     </member>
     <member name="T:Vuforia.ImageTargetFinder">
       <summary>
@@ -1291,6 +1292,15 @@
       <param name="path">binary data</param>
       <returns>If it is a binary glTF</returns>
     </member>
+    <member name="M:Vuforia.GLBHelper.ExtractGLBResources(System.Byte[],System.String@,System.Byte[]@)">
+      <summary>
+            This function takes the full binary data of a glb (version 2) and is able to extract the gltf json and the binary blob from it
+            </summary>
+      <param name="bytes">Binary contents of glb file</param>
+      <param name="glTFJson">Resulting gltf</param>
+      <param name="binaryBuffer">Resulting binary blob</param>
+      <returns>if successfull</returns>
+    </member>
     <member name="M:Vuforia.GLBHelper.ExtractGLBResources(System.String,System.String@,System.Byte[]@)">
       <summary>
             This function takes the path to a glb (version 2) and is able to extract the gltf json and the binary blob from it
@@ -1809,6 +1819,31 @@
             </summary>
       <param name="texture2D">output texture</param>
       <param name="flipY">whether the image should be flipped in y-direction</param>
+    </member>
+    <member name="E:Vuforia.Newtonsoft.Json.JsonSerializer.Error">
+      <summary>
+            Occurs when the <see cref="T:Vuforia.Newtonsoft.Json.JsonSerializer" /> errors during serialization and deserialization.
+            </summary>
+    </member>
+    <member name="E:Vuforia.Newtonsoft.Json.JsonValidatingReader.ValidationEventHandler">
+      <summary>
+            Sets an event handler for receiving schema validation errors.
+            </summary>
+    </member>
+    <member name="E:Vuforia.Newtonsoft.Json.Linq.JObject.PropertyChanged">
+      <summary>
+            Occurs when a property value changes.
+            </summary>
+    </member>
+    <member name="M:Vuforia.MeshSetModelCreator.LoadMeshSet(System.String,System.String,UnityEngine.Transform,Vuforia.DataSet.StorageType,System.Boolean,System.Boolean,UnityEngine.Material)">
+      <summary>
+            Loads a Mesh Set for the Area Target from the given path, and then re-parents the created gameObject to the
+            parentTransform. The Mesh Set can be loaded with colliders, occlusion or without them
+            </summary>
+      <param name="path">The path leads to the Point Cloud data</param>
+      <param name="parentTransform">The transform which the created gameObject should be parented to</param>
+      <param name="withCollider">Loads the Mesh Set with colliders on</param>
+      <param name="withOcclusion">Loads the Mesh Set with a material that makes occlusion possible</param>
     </member>
     <member name="P:Vuforia.VuforiaBehaviour.Instance">
       <summary>
@@ -2420,8 +2455,6 @@
             Returns false if the corresponding DataSet is currently active.
             </summary>
     </member>
-    <!-- Badly formed XML comment ignored for member "M:Vuforia.IPlayModeEditorUtility.SetEditorPrefsString(System.String,System.String)" -->
-    <!-- Badly formed XML comment ignored for member "M:Vuforia.IPlayModeEditorUtility.CopyAndPasteComponentToTarget(UnityEngine.Component,UnityEngine.GameObject)" -->
     <member name="T:Vuforia.StateManager">
       <summary>
             This class is used to manage the state of all TrackableBehaviours, create them,

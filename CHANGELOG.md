@@ -5,6 +5,10 @@ To view detailed release notes, go to: https://library.vuforia.com/articles/Rele
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [9.7.4] - 2021-3-2
+
+Update package to Vuforia Engine version 9.7.4
+
 ## [9.6.4] - 2020-17-12
 
 Update package to Vuforia Engine version 9.6.4

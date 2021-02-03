@@ -81,6 +81,23 @@ namespace Vuforia.UnityRuntimeCompiled
                 return false;
 #endif
             }
+
+            public void SetFocusPointForFrame(Vector3 position, Vector3 normal)
+            {
+#if UNITY_WSA && WINDOWS_XR_ENABLED
+                var xrDisplaySubsystems = new List<XRDisplaySubsystem>();
+                SubsystemManager.GetInstances(xrDisplaySubsystems);
+
+                foreach (var xrDisplay in xrDisplaySubsystems)
+                {
+                    if (xrDisplay.running && !xrDisplay.displayOpaque)
+                    {
+                        xrDisplay.SetFocusPlane(position, normal, Vector3.zero);
+                        return;
+                    }
+                }
+#endif
+            }
         }
 
         class UnityRenderPipeline : IUnityRenderPipeline
