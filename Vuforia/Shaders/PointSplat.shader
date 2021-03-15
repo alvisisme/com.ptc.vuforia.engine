@@ -1,5 +1,5 @@
-﻿/*===============================================================================
-Copyright (c) 2019-2020 PTC Inc. All Rights Reserved.
+/*===============================================================================
+Copyright (c) 2019-2021 PTC Inc. All Rights Reserved.
 
 Confidential and Proprietary - Protected under copyright and other laws.
 Vuforia is a trademark of PTC Inc., registered in the United States and other 
@@ -9,8 +9,6 @@ Shader "PointClouds/PointSplat"
 {
     Properties {
         _PointSize("Point Size", Float) = 0.005
-        _MinHeight("Min Height", Float) = -10.0
-        _MaxHeight("Max Height", Float) = 10.0
         [Toggle(USE_NORMALS)] _UseNormals("Use Normals", Float) = 0.0
     }
 
@@ -28,6 +26,7 @@ Shader "PointClouds/PointSplat"
             #pragma geometry geom
             #pragma fragment frag
             #include "UnityCG.cginc"
+            #define CUBE_DIAGONAL 1.73
 
             struct VertInput
             {
@@ -41,6 +40,7 @@ Shader "PointClouds/PointSplat"
                 half4 color : COLOR;
                 float4 right : TEXCOORD0;
                 float4 up : TEXCOORD1;
+                float4 normal : NORMAL;
             };
 
             struct VertOutput
@@ -50,33 +50,22 @@ Shader "PointClouds/PointSplat"
             };
 
             float _PointSize;
-            float _MinHeight;
-            float _MaxHeight;
             float _UseNormals;
 
             VertToGeom vert(VertInput v) {
                 VertToGeom o;
                 o.position = v.position;
                 o.color = v.color;
+                o.normal = v.normal;
 
                 float3 upDir = normalize(UNITY_MATRIX_IT_MV[1].xyz);
                 float3 viewDir = normalize(UNITY_MATRIX_IT_MV[2].xyz);
                 float3 fwDir = viewDir; 
-                if (_UseNormals > 0.5)
-                {
-                    fwDir = -v.normal.xyz;
-                }
-
                 float3 rightDir = normalize(cross(fwDir, upDir));
-
-                if (_UseNormals > 0.5)
-                {
-                    // Adjust up dir
-                    upDir = normalize(cross(fwDir, rightDir));
-                }
-
-                o.up = float4(upDir * _PointSize, 0);
-                o.right = float4(rightDir * _PointSize, 0);
+                
+                const float splatSize = CUBE_DIAGONAL * _PointSize;
+                o.up = float4(0.5 * splatSize * upDir, 0.0);
+                o.right = float4(0.5 * splatSize * rightDir, 0.0);
                 return o;
             }
 
@@ -86,31 +75,34 @@ Shader "PointClouds/PointSplat"
                 half4 splatColor = input[0].color;
                 float4 right = input[0].right;
                 float4 up = input[0].up;
-                
+                float3 normal = input[0].normal.xyz;
                 float3 worldPos = mul(unity_ObjectToWorld, splatCenter).xyz;
-                if (worldPos.y < _MinHeight || worldPos.y > _MaxHeight)
-                    return;
+                
+                // Back face culling:
+                if (_UseNormals > 0.5)
+                {
+                    float3 worldNormal = mul(unity_ObjectToWorld, float4(normal, 0.0)).xyz;
+                    float3 worldPointToCam = normalize(_WorldSpaceCameraPos.xyz - worldPos);
+                    if (dot(worldPointToCam, worldNormal) < 0.0)
+                    {
+                        return;
+                    }
+                }
 
-                VertOutput vo1;
-                vo1.position = UnityObjectToClipPos(splatCenter - right + up);
-                vo1.color = splatColor;
-                
-                VertOutput vo2;
-                vo2.position = UnityObjectToClipPos(splatCenter + right + up);
-                vo2.color = splatColor;
-                
-                VertOutput vo3;
-                vo3.position = UnityObjectToClipPos(splatCenter + right - up);
-                vo3.color = splatColor;
-                
-                VertOutput vo4;
-                vo4.position = UnityObjectToClipPos(splatCenter - right - up);
-                vo4.color = splatColor;
-                
-                outTriangles.Append(vo1);
-                outTriangles.Append(vo2);
-                outTriangles.Append(vo4);
-                outTriangles.Append(vo3);
+                const float4 objSpaceVertices[] = {
+                    splatCenter - right + up,
+                    splatCenter + right + up,
+                    splatCenter - right - up,
+                    splatCenter + right - up
+                };
+
+                for (int i = 0; i < 4; i++)
+                {
+                    VertOutput vo;
+                    vo.position = UnityObjectToClipPos(objSpaceVertices[i]);
+                    vo.color = splatColor;
+                    outTriangles.Append(vo);
+                }
             }
 
             half4 frag(VertOutput v) : COLOR 

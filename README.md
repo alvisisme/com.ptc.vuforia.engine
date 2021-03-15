@@ -20,7 +20,7 @@ Alternatively, it can be added directly from the Package Manager Window through 
 
 The URL to add is
 ```json
-git+https://git-packages.developer.vuforia.com/#9.7.5
+git+https://git-packages.developer.vuforia.com/#9.8.5
 ```
 where the number after # represents the Vuforia Engine version you wish to import.
 Note: There is no visual feedback in the Unity Editor while the package is being imported in the background.
@@ -29,7 +29,7 @@ Finally, you can directly add the dependency to your project by editing the *man
 ```json
 {
    "dependencies": { 
-"com.ptc.vuforia.engine": "git+https://git-packages.developer.vuforia.com/#9.7.5",
+"com.ptc.vuforia.engine": "git+https://git-packages.developer.vuforia.com/#9.8.5",
 	...
   } 
 } 

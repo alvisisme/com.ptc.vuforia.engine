@@ -39,6 +39,8 @@ public class DefaultTrackableEventHandler : MonoBehaviour
     protected TrackableBehaviour mTrackableBehaviour;
     protected TrackableBehaviour.Status m_PreviousStatus;
     protected TrackableBehaviour.Status m_NewStatus;
+    protected TrackableBehaviour.StatusInfo m_PreviousStatusInfo;
+    protected TrackableBehaviour.StatusInfo m_NewStatusInfo;
     protected bool m_CallbackReceivedOnce = false;
 
     protected virtual void Start()
@@ -48,6 +50,7 @@ public class DefaultTrackableEventHandler : MonoBehaviour
         if (mTrackableBehaviour)
         {
             mTrackableBehaviour.RegisterOnTrackableStatusChanged(OnTrackableStatusChanged);
+            mTrackableBehaviour.RegisterOnTrackableStatusInfoChanged(OnTrackableStatusInfoChanged);
         }
     }
 
@@ -55,6 +58,7 @@ public class DefaultTrackableEventHandler : MonoBehaviour
     {
         if (mTrackableBehaviour)
         {
+            mTrackableBehaviour.UnregisterOnTrackableStatusInfoChanged(OnTrackableStatusInfoChanged);
             mTrackableBehaviour.UnregisterOnTrackableStatusChanged(OnTrackableStatusChanged);
         }
     }
@@ -70,6 +74,14 @@ public class DefaultTrackableEventHandler : MonoBehaviour
             mTrackableBehaviour.CurrentStatusInfo);
 
         HandleTrackableStatusChanged();
+    }
+
+    void OnTrackableStatusInfoChanged(TrackableBehaviour.StatusInfoChangeResult statusInfoChangeResult)
+    {
+        m_PreviousStatusInfo = statusInfoChangeResult.PreviousStatusInfo;
+        m_NewStatusInfo = statusInfoChangeResult.NewStatusInfo;
+        
+        HandleTrackableStatusInfoChanged();
     }
 
     protected virtual void HandleTrackableStatusChanged()
@@ -95,6 +107,18 @@ public class DefaultTrackableEventHandler : MonoBehaviour
         }
 
         m_CallbackReceivedOnce = true;
+    }
+
+    protected virtual void HandleTrackableStatusInfoChanged()
+    {
+        if (m_NewStatusInfo == TrackableBehaviour.StatusInfo.WRONG_SCALE)
+        {
+            Debug.LogErrorFormat("The target {0} appears to be scaled incorrectly. " + 
+                                 "This might result in tracking issues. " + 
+                                 "Please make sure that the target size corresponds to the size of the " + 
+                                 "physical object in meters and regenerate the target or set the correct " +
+                                 "size in the target's inspector.", mTrackableBehaviour.TrackableName);
+        }
     }
 
     protected bool ShouldBeRendered(TrackableBehaviour.Status status)

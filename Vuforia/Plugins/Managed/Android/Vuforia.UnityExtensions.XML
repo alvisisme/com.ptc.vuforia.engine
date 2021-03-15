@@ -854,7 +854,7 @@
     <member name="P:Vuforia.GuideView.Pose">
       <summary>
             The pose of the guide view in camera space
-            If set, it invalidates the Image property
+            If set, the guide view's image is updated.
             </summary>
     </member>
     <member name="P:Vuforia.GuideView.Image">
@@ -980,6 +980,16 @@
             For more details on the meaning of the value, please see the
             documentation of setTrackingMode().
             <returns>The current tracking mode of this target.</returns></summary>
+    </member>
+    <member name="M:Vuforia.ModelTarget.SetActiveStateName(System.String)">
+      <summary>
+            Sets the active state for this ModelTarget by name
+            </summary>
+    </member>
+    <member name="M:Vuforia.ModelTarget.GetActiveStateName">
+      <summary>
+            Returns the active state name
+            </summary>
     </member>
     <member name="T:Vuforia.ModelTargetBehaviour">
       <summary>
@@ -1375,7 +1385,7 @@
     </member>
     <member name="F:Vuforia.PIXEL_FORMAT.YUYV">
       <summary>
-            A color pixel stored in 12 or more bits using interleaved Y, U and V planes
+            A color pixel stored in 16 or more bits using interleaved Y, U and V planes
             </summary>
     </member>
     <member name="P:Vuforia.ImageDescription.Width">
@@ -2710,20 +2720,7 @@
             Default is: 1
             </summary>
     </member>
-    <member name="F:Vuforia.VuforiaUnity.VuforiaHint.HINT_MODEL_TARGET_MODE">
-      <summary>
-             Set Model Target tracking mode 
-            
-             This hint modifies the the internal Model Target tracking parameters to optimize tracking quality
-             and robustness for different target types
-            
-             note The hint can only be set when the ObjectTracker is stopped
-            
-             Valid values for the hint can be found in ModelTargetMode.
-             note to use this flag with setHint() method you need to static cast the value to an int
-             Default is: ModelTargetMode.DEFAULT
-             </summary>
-    </member>
+    <!-- Badly formed XML comment ignored for member "F:Vuforia.VuforiaUnity.VuforiaHint.HINT_STATIC_DEVICE_TRACKER" -->
     <member name="T:Vuforia.VuforiaUnity.StorageType">
       <summary>
             Storage type is used to interpret a given path string.
@@ -3692,6 +3689,11 @@
     <member name="F:Vuforia.TrackableBehaviour.StatusInfo.NO_DETECTION_RECOMMENDING_GUIDANCE">
       <summary>
             Could not snap the target
+            </summary>
+    </member>
+    <member name="F:Vuforia.TrackableBehaviour.StatusInfo.WRONG_SCALE">
+      <summary>
+            The target scale does not match the physical scale
             </summary>
     </member>
     <member name="T:Vuforia.TrackableBehaviour.StatusChangeResult">

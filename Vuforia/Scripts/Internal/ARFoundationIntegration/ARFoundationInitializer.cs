@@ -23,8 +23,8 @@ namespace Vuforia.UnityRuntimeCompiled.ARFoundationIntegration
     {
         static OpenSourceUnityARFoundationFacade sFacade;
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        static void OnBeforeSceneLoad()
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+        static void OnAfterAssembliesLoaded()
         {
             InitializeFacade();
         }
@@ -34,15 +34,13 @@ namespace Vuforia.UnityRuntimeCompiled.ARFoundationIntegration
             if (sFacade != null) return;
 
             sFacade = new OpenSourceUnityARFoundationFacade();
-#if ARFOUNDATION_DEFINED
             UnityARFoundationFacade.Instance = sFacade;
-#endif
         }
     }
 
-#if ARFOUNDATION_DEFINED
     class OpenSourceUnityARFoundationFacade : IUnityARFoundationFacade
     {
+#if ARFOUNDATION_DEFINED
         ARCameraManager   mCameraManager;
         ARAnchorManager   mAnchorManager;
         ARSession         mSession;
@@ -50,7 +48,7 @@ namespace Vuforia.UnityRuntimeCompiled.ARFoundationIntegration
         ARRaycastManager  mRaycastManager;
 
         Dictionary<string, ARAnchor> mAnchors = new Dictionary<string, ARAnchor>();
-
+#endif
         public event Action<ARFoundationImage> ARFoundationImageEvent = image => { };
         public event Action<Transform, long> ARFoundationPoseEvent = (pose, timestamp) => { };
 
@@ -58,17 +56,26 @@ namespace Vuforia.UnityRuntimeCompiled.ARFoundationIntegration
 
         public bool IsARFoundationScene()
         {
+#if ARFOUNDATION_DEFINED
             var arSession = GameObject.FindObjectOfType<ARSession>();
             return arSession != null;
+#else
+            return false;
+#endif
         }
 
         public IEnumerator CheckAvailability()
         {
+#if ARFOUNDATION_DEFINED
             yield return ARSession.CheckAvailability();
+#else
+            yield break;
+#endif
         }
 
         public void FindDependencies()
         {
+#if ARFOUNDATION_DEFINED
             mCameraManager = GameObject.FindObjectOfType<ARCameraManager>();
             mSession = GameObject.FindObjectOfType<ARSession>();
             mSessionOrigin = GameObject.FindObjectOfType<ARSessionOrigin>();
@@ -77,45 +84,63 @@ namespace Vuforia.UnityRuntimeCompiled.ARFoundationIntegration
             mAnchorManager = mSessionOrigin.GetComponent<ARAnchorManager>();
             if (mAnchorManager == null)
                 mAnchorManager = mSessionOrigin.gameObject.AddComponent<ARAnchorManager>();
+#endif
         }
 
         public void Init()
         {
+#if ARFOUNDATION_DEFINED
             mAnchorManager.anchorsChanged += OnAnchorsChanged;
             mCameraManager.frameReceived += OnFrameReceived;
+#endif
         }
 
         public void Deinit()
         {
             ClearAnchors();
+#if ARFOUNDATION_DEFINED
             mSession.Reset();
             mAnchorManager.anchorsChanged -= OnAnchorsChanged;
             mCameraManager.frameReceived -= OnFrameReceived;
+#endif
         }
 
         public IEnumerator WaitCameraForReady()
         {
+#if ARFOUNDATION_DEFINED
             var waitForEndOfFrame = new WaitForEndOfFrame();
             while (mCameraManager == null || mCameraManager.subsystem == null || !mCameraManager.subsystem.running ||
                 !mCameraManager.permissionGranted)
             {
                 yield return waitForEndOfFrame;
             }
+#else
+            yield break;
+#endif
         }
 
         public bool IsARFoundationReady()
         {
+#if ARFOUNDATION_DEFINED
             return ARSession.state >= ARSessionState.Ready;
+#else
+            return false;
+#endif
         }
 
         public Transform GetCameraTransform()
         {
+#if ARFOUNDATION_DEFINED
             return mCameraManager.transform;
+#else
+            return null;
+#endif
         }
 
         public List<CameraMode> GetProfiles()
         {
             var profiles = new List<CameraMode>();
+#if ARFOUNDATION_DEFINED
             using (var configurations = mCameraManager.GetConfigurations(Allocator.Temp))
             {
                 if (!configurations.IsCreated || configurations.Length <= 0)
@@ -138,11 +163,13 @@ namespace Vuforia.UnityRuntimeCompiled.ARFoundationIntegration
                     ));
                 }
             }
+#endif
             return profiles;
         }
 
         public bool SelectProfile(CameraMode profile)
         {
+#if ARFOUNDATION_DEFINED
             using (var configurations = mCameraManager.GetConfigurations(Allocator.Temp))
             {
                 if (!configurations.IsCreated || configurations.Length <= 0)
@@ -163,8 +190,12 @@ namespace Vuforia.UnityRuntimeCompiled.ARFoundationIntegration
                 mCameraManager.currentConfiguration = selectedConfiguration;
             }
             return true;
+#else
+            return false;
+#endif
         }
 
+#if ARFOUNDATION_DEFINED
         void OnFrameReceived(ARCameraFrameEventArgs eventArgs)
         {
             if (!mCameraManager.TryGetIntrinsics(out var cameraIntrinsics))
@@ -218,44 +249,55 @@ namespace Vuforia.UnityRuntimeCompiled.ARFoundationIntegration
             }
             AnchorsChangedEvent.Invoke(removed, updated);
         }
+#endif
 
         public bool RemoveAnchor(string uuid)
         {
             var result = false;
+#if ARFOUNDATION_DEFINED
             if (mAnchors.ContainsKey(uuid))
                 result = mAnchorManager.RemoveAnchor(mAnchors[uuid]);
             if (result)
                 mAnchors.Remove(uuid);
+#endif
             return result;
         }
 
         public string AddAnchor(Pose pose)
         {
+#if ARFOUNDATION_DEFINED
             var anchor = mAnchorManager.AddAnchor(pose);
             if (anchor == null) return null;
 
             var id = anchor.trackableId.ToString();
             mAnchors[id] = anchor;
             return id;
+#else
+            return null;
+#endif
         }
 
         public void ClearAnchors()
         {
+#if ARFOUNDATION_DEFINED
             foreach (var anchor in mAnchors)
                 mAnchorManager.RemoveAnchor(anchor.Value);
             mAnchors.Clear();
+#endif
         }
 
         public bool HitTest(Vector2 screenPoint, out List<Pose> hitPoses)
         {
+#if ARFOUNDATION_DEFINED
             var hits = new List<ARRaycastHit>();
             var hitSuccess = mRaycastManager.Raycast(screenPoint, hits, TrackableType.PlaneWithinPolygon);
             hitPoses = hits.ConvertAll(hit => hit.pose);
             return hitSuccess;
+#else
+            hitPoses = new List<Pose>();
+            return false;
+#endif
         }
     }
-#else
-    class OpenSourceUnityARFoundationFacade {}
-#endif // ARFOUNDATION_DEFINED
 }
 
